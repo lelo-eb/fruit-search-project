@@ -36,15 +36,37 @@ function searchHandler(e) {
     showSuggestions(results, inputVal);
 }
 
-function showSuggestions(results) {
+function showSuggestions(results, inputVal) {
     let dropdown = document.querySelector('.suggestions');
     dropdown.innerHTML = '';
 
         results.forEach(result => {
             const li = document.createElement('li');
-            li.textContent = result;
+            const boldedResult = getBoldedResult(result, inputVal);
+            li.innerHTML = boldedResult;
             dropdown.appendChild(li);
         });
+}
+
+function getBoldedResult(result, inputVal) {
+    const lowercaseResult = result.toLowerCase();
+    const lowercaseInput = inputVal.toLowerCase();
+    let boldedResult = '';
+
+    let i = 0;
+    for (let j = 0; j < lowercaseResult.length; j++) {
+        const currentChar = result.charAt(j);
+        const isCharBold = lowercaseInput[i] === currentChar.toLowerCase();
+
+        if (isCharBold) {
+            boldedResult += '<strong>' + currentChar + '</strong>';
+            i++;
+        } else {
+            boldedResult += currentChar;
+        }
+    }
+
+    return boldedResult;
 }
 
 function useSuggestion(e) {
