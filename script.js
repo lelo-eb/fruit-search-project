@@ -30,8 +30,13 @@ function search(str) {
 
 function searchHandler(e) {
     const suggestions = document.querySelector('.suggestions');
-    suggestions.style.display = 'block';
     const inputVal = e.target.value.trim();
+
+    if (inputVal === '') {
+        suggestions.style.display = 'none';
+        return;
+    }
+    suggestions.style.display = 'block';
     const results = search(inputVal);
     showSuggestions(results, inputVal);
 }
@@ -40,12 +45,12 @@ function showSuggestions(results, inputVal) {
     let dropdown = document.querySelector('.suggestions');
     dropdown.innerHTML = '';
 
-        results.forEach(result => {
-            const li = document.createElement('li');
-            const boldedResult = getBoldedResult(result, inputVal);
-            li.innerHTML = boldedResult;
-            dropdown.appendChild(li);
-        });
+            results.forEach(result => {
+                const li = document.createElement('li');
+                const boldedResult = getBoldedResult(result, inputVal);
+                li.innerHTML = boldedResult;
+                dropdown.appendChild(li);
+            });
 }
 
 function getBoldedResult(result, inputVal) {
