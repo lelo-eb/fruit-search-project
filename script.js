@@ -29,25 +29,22 @@ function search(str) {
 }
 
 function searchHandler(e) {
+    const suggestions = document.querySelector('.suggestions');
+    suggestions.style.display = 'block';
     const inputVal = e.target.value.trim();
     const results = search(inputVal);
     showSuggestions(results, inputVal);
 }
 
-function showSuggestions(results, inputVal) {
-    suggestions.innerHTML = '';
+function showSuggestions(results) {
+    let dropdown = document.querySelector('.suggestions');
+    dropdown.innerHTML = '';
 
-    if (results.length > 0) {
         results.forEach(result => {
             const li = document.createElement('li');
             li.textContent = result;
-            suggestions.appendChild(li);
+            dropdown.appendChild(li);
         });
-
-        suggestions.style.display = 'block';
-    } else {
-        suggestions.style.display = 'none';
-    }
 }
 
 function useSuggestion(e) {
